@@ -96,3 +96,25 @@
   :hook ((c++-mode . irony-mode)
 	 (c-mode . irony-mode)
 	 (objc-mode . irony-mode)))
+
+(use-package treemacs
+  :ensure)
+
+(defun mini-frame-set-font ()
+  (set (make-local-variable 'face-remapping-alist)
+       '((default :height 2))))
+
+;;; Makes sure M-x and some other commands are properly vertical
+(use-package ivy
+  :ensure
+  :hook ((after-init . ivy-mode)))
+
+;;; Provides a centered vertical frame
+(use-package mini-frame
+  :ensure
+  :hook ((after-init . mini-frame-mode)
+	 (mini-frame-setup . mini-frame-set-font))
+  :config (setq mini-frame-show-parameters '((top . 30)
+					     (height . 50)
+					     (width . 80)
+					     (left . 0.5))))
