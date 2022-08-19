@@ -102,7 +102,9 @@
 
 (defun mini-frame-set-font ()
   (set (make-local-variable 'face-remapping-alist)
-       '((default :height 2))))
+       '((default :height 1.3))))
+
+(add-hook 'minibuffer-setup-hook 'mini-frame-set-font)
 
 ;;; Makes sure M-x and some other commands are properly vertical
 (use-package ivy
@@ -112,8 +114,7 @@
 ;;; Provides a centered vertical frame
 (use-package mini-frame
   :ensure
-  :hook ((after-init . mini-frame-mode)
-	 (mini-frame-setup . mini-frame-set-font))
+  :hook ((after-init . mini-frame-mode))
   :config (setq mini-frame-show-parameters '((top . 30)
 					     (height . 50)
 					     (width . 80)
