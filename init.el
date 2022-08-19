@@ -12,6 +12,8 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
+(require 'cl-lib)
+
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file 'NOERROR 'NOMESSAGE 'NOSUFFIX)
 
@@ -45,7 +47,7 @@
 
 (use-package sly
   :ensure
-  :config (push '("\\*sly-mrepl*" (display-buffer-at-bottom)) display-buffer-alist)
+  :config (cl-pushnew '("\\*sly-mrepl*" (display-buffer-at-bottom)) display-buffer-alist :test #'equal)
   :hook (sly-mode . spawn-sly-if-not-exists))
 
 (use-package company
