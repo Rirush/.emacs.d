@@ -1,3 +1,16 @@
+;;; Load packages and add melpa to the archives
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+
+;;; Ensure that 'use-package' is installed.
+;;; This configuration healivy relies on it
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+;;; I'm not entirely sure why it should be 'eval-when-compile'
+;;; but 'use-package' documentation suggests this
 (eval-when-compile
   (require 'use-package)) ; Load use-package
 
@@ -8,26 +21,29 @@
 (set-face-attribute 'default t :font "Iosevka-14") ; Change font to Iosevka
 (set-frame-font "Iosevka-16" nil t)
 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
-
 (require 'cl-lib)
 
+;;; Move customization information into a separate file
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file 'NOERROR 'NOMESSAGE 'NOSUFFIX)
 
 (setq inferior-lisp-program "sbcl")
 
+;;; Resize the default frame, and enable 'display-fill-column-indicator-mode'
 (add-hook 'after-init-hook (lambda ()
 			     (when window-system (set-frame-size (selected-frame) 160 50))
 			     (global-display-fill-column-indicator-mode 1)))
 
+;;; Disable toolbar
 (tool-bar-mode -1)
 
+;;; Set 'display-fill-column-indicator-mode' to 140 columns
 (add-hook 'display-fill-column-indicator-mode-hook
 	  (lambda ()
 	    (setq display-fill-column-indicator-column 140)))
+
+(use-package magit
+  :ensure)
 
 (use-package paredit
   :ensure
