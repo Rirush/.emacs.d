@@ -100,6 +100,9 @@
 (use-package treemacs
   :ensure)
 
+(use-package treemacs-magit
+  :ensure)
+
 (defun mini-frame-set-font ()
   (set (make-local-variable 'face-remapping-alist)
        '((default :height 1.3))))
@@ -114,11 +117,7 @@
 ;;; Provides a centered vertical frame
 (use-package mini-frame
   :ensure
-  :hook ((after-init . mini-frame-mode))
-  :config (setq mini-frame-show-parameters '((top . 30)
-					     (height . 50)
-					     (width . 80)
-					     (left . 0.5))))
+  :hook ((after-init . mini-frame-mode)))
 
 (defun project-new (path)
   (interactive "DProject path: ")
