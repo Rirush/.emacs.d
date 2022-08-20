@@ -119,3 +119,10 @@
 					     (height . 50)
 					     (width . 80)
 					     (left . 0.5))))
+
+(defun project-new (path)
+  (interactive "DProject path: ")
+  (let ((project (cons 'vc path)))
+    (project-remember-project project)
+    (project-switch-project path)))
+
